@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EstudiantesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="estudiante">
+    <Key>
+      <PropertyRef Name="idEstudiante" />
+    </Key>
+    <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombresEstudiante" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="contrasenia" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="notas" Relationship="Self.FK__notas__idEstudia__45F365D3" FromRole="estudiante" ToRole="notas" />
+  </EntityType>
+  <EntityType Name="materia">
+    <Key>
+      <PropertyRef Name="idMateria" />
+    </Key>
+    <Property Name="idMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreMateria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="notas" Relationship="Self.FK__notas__idMateria__46E78A0C" FromRole="materia" ToRole="notas" />
+  </EntityType>
+  <EntityType Name="notas">
+    <Key>
+      <PropertyRef Name="idNotas" />
+    </Key>
+    <Property Name="idNotas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEstudiante" Type="Int32" Nullable="false" />
+    <Property Name="idMateria" Type="Int32" Nullable="false" />
+    <Property Name="nota" Type="Double" />
+    <NavigationProperty Name="estudiante" Relationship="Self.FK__notas__idEstudia__45F365D3" FromRole="notas" ToRole="estudiante" />
+    <NavigationProperty Name="materia" Relationship="Self.FK__notas__idMateria__46E78A0C" FromRole="notas" ToRole="materia" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__notas__idEstudia__45F365D3">
+    <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estudiante">
+        <PropertyRef Name="idEstudiante" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="idEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__notas__idMateria__46E78A0C">
+    <End Role="materia" Type="Self.materia" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="materia">
+        <PropertyRef Name="idMateria" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="idMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EstudiantesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="estudiante" EntityType="Self.estudiante" />
+    <EntitySet Name="materia" EntityType="Self.materia" />
+    <EntitySet Name="notas" EntityType="Self.notas" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__notas__idEstudia__45F365D3" Association="Self.FK__notas__idEstudia__45F365D3">
+      <End Role="estudiante" EntitySet="estudiante" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__notas__idMateria__46E78A0C" Association="Self.FK__notas__idMateria__46E78A0C">
+      <End Role="materia" EntitySet="materia" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

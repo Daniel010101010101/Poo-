@@ -1,0 +1,43 @@
+﻿@model EstudianteDaniel2.Models.notas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>notas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estudiante.nombresEstudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estudiante.nombresEstudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.materia.nombreMateria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.materia.nombreMateria)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idNotas }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
